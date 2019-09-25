@@ -35,19 +35,22 @@ public class Driver {
 					break;
 				case "1":
 					details = userInput.login("customer", sc);
-					//menuSelect = details.get("nxtMenu");
+					menuSelect = details.get("nxtMenu");
 					break;
 				case "2":
-					userInput.login("employee", sc);
+					details=userInput.login("employee", sc);
+					menuSelect=details.get("nxtMenu");
 					break;
 				case "3":
 					accCreateOptions();
 					break;
 				case "4":
-					userInput.createAccount("employee", sc);					
+					details=userInput.createAccount("employee", sc);
+					menuSelect=details.get("nxtMenu");
 					break;
 				case "5":
-					userInput.createAccount("customer", sc);					
+					details=userInput.createAccount("customer", sc);	
+					menuSelect=details.get("nxtMenu");
 					break;
 				case "9":
 					mainMenu();

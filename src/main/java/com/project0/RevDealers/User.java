@@ -1,6 +1,9 @@
 package com.project0.RevDealers;
 
-public class User {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class User implements Serializable  {
 	private String name;
 	private String email;
 	private String passWord;

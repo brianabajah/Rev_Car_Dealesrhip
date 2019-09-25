@@ -50,7 +50,7 @@ public class UserInput extends ValueValidater {
 
 	}
 
-	public void createAccount(String user, Scanner sc) {
+	public HashMap<String, String> createAccount(String user, Scanner sc) {
 		loginRequirements();
 		divider("CREATE ACCOUNT");
 		for (String va : fields) {
@@ -67,7 +67,7 @@ public class UserInput extends ValueValidater {
 
 			} else if (va == "customerID") {
 				if (user == "customer") {
-					System.out.println("ENTER " + va.toUpperCase() + " BELOW");
+					System.out.println("ENTER " + va.toUpperCase() + " BELOW");///System generated later on
 					loginDetails.put(va, sc.next());
 				}
 			} else if (va == "address") {	
@@ -87,6 +87,12 @@ public class UserInput extends ValueValidater {
 				loginDetails.put(va, sc.next());
 			}
 		}
+		System.out.println("\n\nPress 1 to finish and 0 to go back to start");
+		String fin =sc.next();
+		if(fin=="0") {loginRequirements(); loginDetails.put("nxtMenu","9");}
+		else if (fin =="1") { loginDetails.put("nxtMenu","10");}	
+		
+		return loginDetails;
 	}
 
 }

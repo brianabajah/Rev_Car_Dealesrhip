@@ -1,12 +1,9 @@
 package com.project0.RevDealers;
 
-import java.io.Serializable;
 
-public class Employee extends User implements Serializable {
-/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5292078293581126528L;
+@SuppressWarnings("serial")
+public class Employee extends User {
+
 private String position;
 private boolean administrator;
 private boolean superUser;
