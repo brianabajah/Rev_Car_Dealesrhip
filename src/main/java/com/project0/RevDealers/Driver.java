@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Driver {
 
 	static UserInput userInput;
+	static UserAccounts userAccounts;
 	static HashMap<String,String> details;
 	static Scanner sc;
 	private static String menuSelect = "9";//main menu
@@ -31,6 +32,7 @@ public class Driver {
 				switch (menuSelect) {
 
 				case "0":
+					System.out.println("Program Closed");
 					exit = false;
 					break;
 				case "1":
@@ -46,6 +48,7 @@ public class Driver {
 					break;
 				case "4":
 					details=userInput.createAccount("employee", sc);
+					userAccounts.creatEmployeeAcc(details);
 					menuSelect=details.get("nxtMenu");
 					break;
 				case "5":
@@ -78,7 +81,7 @@ public class Driver {
 		System.out.println("-------------------------------------------------------");
 		System.out.println("\n Press 0 to exit app");
 		
-		menuselector("1239");
+		menuselector("12309");
 		
 	}
 	
@@ -102,7 +105,7 @@ public class Driver {
 			}
 			else{
 				System.out.print("Please Choose Between   ");
-				for(int x=0; x<expected.length()-1;x++) {
+				for(int x=0; x<expected.length();x++) {
 					System.out.print(expected.charAt(x) + "    ");
 				}
 			}

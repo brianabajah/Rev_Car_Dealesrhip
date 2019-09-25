@@ -10,7 +10,7 @@ public class UserInput extends ValueValidater {
 	private ValueValidater vava = new ValueValidater();
 
 	private String[] fields = { "name", "email", "password", "dateOfBirth", "address", "employeeID", "position",
-			"address", "customerID", "nxtMenu" };
+								"customerID", "nxtMenu" };
 	private String[] addresss= {"Address Line One:","Address Line Two:","City:","State / Province / Region:","Zip / Postal Code:"};
 
 	public void loginRequirements() {
@@ -80,17 +80,21 @@ public class UserInput extends ValueValidater {
 				}
 				
 				// loop through some value
-				loginDetails.put("address", String.join(" ", scv));
-			}
+				loginDetails.put("address", String.join("\n ", scv));
+			} else if (va == "nxtMenu") {}
 			else {
 				System.out.println("ENTER " + va.toUpperCase() + " BELOW");
 				loginDetails.put(va, sc.next());
 			}
+		}		
+		while(true) {
+			System.out.println("\n\nPress 1 to finish and 0 to go back to start");
+			String fin =sc.next();
+			if(fin.equals("0")) {loginDetails.put("nxtMenu","9"); break;}
+			else if (fin.equals("1")) { loginDetails.put("nxtMenu","10"); break;}	
 		}
-		System.out.println("\n\nPress 1 to finish and 0 to go back to start");
-		String fin =sc.next();
-		if(fin=="0") {loginRequirements(); loginDetails.put("nxtMenu","9");}
-		else if (fin =="1") { loginDetails.put("nxtMenu","10");}	
+		
+		
 		
 		return loginDetails;
 	}
