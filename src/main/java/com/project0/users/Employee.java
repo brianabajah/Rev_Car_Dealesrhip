@@ -1,5 +1,4 @@
-package com.project0.RevDealers;
-
+package com.project0.users;
 
 @SuppressWarnings("serial")
 public class Employee extends User {

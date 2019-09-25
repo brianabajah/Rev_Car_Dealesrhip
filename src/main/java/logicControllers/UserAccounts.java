@@ -1,7 +1,9 @@
-package com.project0.RevDealers;
+package logicControllers;
 
 import java.util.HashMap;
 import java.util.List;
+
+import com.project0.users.Employee;
 
 public class UserAccounts {
 	private List<Employee> EmAccounts;

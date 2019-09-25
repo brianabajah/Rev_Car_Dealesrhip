@@ -1,4 +1,4 @@
-package com.project0.RevDealers;
+package com.project0.users;
 
 import java.io.Serializable;
 import java.util.TreeMap;

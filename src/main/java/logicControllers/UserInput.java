@@ -1,4 +1,4 @@
-package com.project0.RevDealers;
+package logicControllers;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -9,9 +9,8 @@ public class UserInput extends ValueValidater {
 
 	private ValueValidater vava = new ValueValidater();
 
-	private String[] fields = { "name", "email", "password", "dateOfBirth", "address", "employeeID", "position",
-								"customerID", "nxtMenu" };
-	private String[] addresss= {"Address Line One:","Address Line Two:","City:","State / Province / Region:","Zip / Postal Code:"};
+	private String[] fields = { "name", "email", "password", "address", "nxtMenu" };
+	private String[] addresss= {"Address Line One:","Zip / Postal Code:"};
 
 	public void loginRequirements() {
 		loginDetails = new HashMap<String, String>();
