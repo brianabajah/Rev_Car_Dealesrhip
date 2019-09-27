@@ -3,12 +3,10 @@ import java.util.ArrayList;
 
 public class Vehicle {
 	private String brand;
-	private String vehicletype;
 	private String make;
 	private int year;
 	private boolean isAvailable=false;
 	private boolean isKeyless;
-	private int vin;
 	private ArrayList<String> extraFeatures;
 	
 	public Vehicle() {}
@@ -19,14 +17,6 @@ public class Vehicle {
 
 	public void setBrand(String brand) {
 		this.brand = brand;
-	}
-
-	public String getVehicletype() {
-		return vehicletype;
-	}
-
-	public void setVehicletype(String vehicletype) {
-		this.vehicletype = vehicletype;
 	}
 
 	public String getMake() {
@@ -53,14 +43,6 @@ public class Vehicle {
 		this.isAvailable = isAvailable;
 	}
 
-	public int getVin() {
-		return vin;
-	}
-
-	public void setVin(int vin) {
-		this.vin = vin;
-	}
-
 	public ArrayList<String> getExtraFeatures() {
 		return extraFeatures;
 	}
@@ -77,24 +59,11 @@ public class Vehicle {
 		this.isKeyless = isKeyless;
 	}
 
-	public Vehicle(String brand, String vehicletype, String make, int year, boolean isKeyless,
-			int vin, ArrayList<String> extraFeatures) {
-		super();
+	public Vehicle(String brand, String vehicletype, String make, int year, boolean isKeyless) {
 		this.brand = brand;
-		this.vehicletype = vehicletype;
 		this.make = make;
 		this.year = year;
 		this.isKeyless = isKeyless;
-		this.vin = vin;
-		this.extraFeatures = extraFeatures;
-	}
-
-	@Override
-	public String toString() {
-		return "Vehicle [brand=" + brand + ", vehicletype=" + vehicletype + ", make=" + make + ", year=" + year
-				+ ", isAvailable=" + isAvailable + ", isKeyless=" + isKeyless + ", vin=" + vin + ", extraFeatures="
-				+ extraFeatures + "]";
-	}
-				
+	}		
 
 }

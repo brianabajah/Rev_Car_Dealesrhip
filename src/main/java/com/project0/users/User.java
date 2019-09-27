@@ -7,16 +7,14 @@ public class User implements Serializable  {
 	private String name;
 	private String email;
 	private String passWord;
-	private String dateOfBirth;
 	private String address;
 	
 	public User() {
 	}
-	public User(String name, String email, String passWord, String dateOfBirth, String address) {
+	public User(String name, String email, String passWord, String address) {
 		this.name = name;
 		this.email = email;
 		this.passWord = passWord;
-		this.dateOfBirth = dateOfBirth;
 		this.address = address;
 	}
 	public String getName() {
@@ -36,12 +34,6 @@ public class User implements Serializable  {
 	}
 	public void setPassWord(String passWord) {
 		this.passWord = passWord;
-	}
-	public String getDateOfBirth() {
-		return dateOfBirth;
-	}
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
 	}
 	public String getAddress() {
 		return address;

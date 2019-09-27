@@ -1,10 +1,10 @@
-package driver;
+package com.project0.driver;
 
 import java.util.HashMap;
 import java.util.Scanner;
 
-import logicControllers.UserAccounts;
-import logicControllers.UserInput;
+import com.project0.logicalControllers.UserAccounts;
+import com.project0.logicalControllers.UserInput;
 
 public class Driver {
 
@@ -15,7 +15,7 @@ public class Driver {
 	private static String menuSelect = "9";//main menu
 
 	public static void main(String[] args) {
-				
+		userAccounts= new UserAccounts();	
 		userInput = new UserInput();
 		userInput.loginRequirements();// create hashmap to store variables
 		sc= new Scanner(System.in);
@@ -75,7 +75,7 @@ public class Driver {
 	}
 
 	private static void mainMenu() {
-		userInput.divider("========");
+		userInput.divider("===============");
 		System.out.println("            Welcome to RevDelers.\n        Revolutionizing The Motor Industry\n");
 
 		System.out.println("-------------------------------------------------------");

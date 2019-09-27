@@ -1,14 +1,19 @@
 package com.project0.users;
 
-import java.io.Serializable;
 import java.util.TreeMap;
 
-public class Customer extends User implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3153249876519607827L;
+@SuppressWarnings("serial")
+public class Customer extends User  {
 	private int customerID;
+	
+	@Override
+	public String toString() {
+		return "Customer [customerID=" + customerID + ", PaymentDetails=" + PaymentDetails + ", getName()=" + getName()
+				+ ", getEmail()=" + getEmail() + ", getPassWord()=" + getPassWord() + ", getAddress()=" + getAddress()
+				+ "]";
+	}
+
+	
 	
 	private TreeMap<String, Integer> PaymentDetails;
 
@@ -16,8 +21,8 @@ public class Customer extends User implements Serializable {
 		super();
 	}
 
-	public Customer(String name, String email, String passWord, String dateOfBirth, String address, int customerID) {
-		super(name, email, passWord, dateOfBirth, address);
+	public Customer(String name, String email, String passWord, String address) {
+		super(name, email, passWord, address);
 		this.setCustomerID(customerID);
 	}
 

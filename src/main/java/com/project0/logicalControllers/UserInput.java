@@ -1,4 +1,4 @@
-package logicControllers;
+package com.project0.logicalControllers;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -10,7 +10,7 @@ public class UserInput extends ValueValidater {
 	private ValueValidater vava = new ValueValidater();
 
 	private String[] fields = { "name", "email", "password", "address", "nxtMenu" };
-	private String[] addresss= {"Address Line One:","Zip / Postal Code:"};
+	private String[] addresss= {"Address :","Zip / Postal Code:"};
 
 	public void loginRequirements() {
 		loginDetails = new HashMap<String, String>();
@@ -39,6 +39,7 @@ public class UserInput extends ValueValidater {
 
 		loginDetails.put("nxtMenu", "9");
 		
+		
 		return loginDetails;
 
 	}
@@ -48,6 +49,7 @@ public class UserInput extends ValueValidater {
 				+ "====================\n");
 
 	}
+	
 
 	public HashMap<String, String> createAccount(String user, Scanner sc) {
 		loginRequirements();
@@ -58,32 +60,22 @@ public class UserInput extends ValueValidater {
 					System.out.println("ENTER " + va.toUpperCase() + " BELOW");
 					loginDetails.put(va, sc.next());
 				}
-			} else if (va == "employeeID" || va == "position") {
-				if (user == "employee") {
-					System.out.println("ENTER " + va.toUpperCase() + " BELOW");
-					loginDetails.put(va, sc.next());
-				}
-
-			} else if (va == "customerID") {
-				if (user == "customer") {
-					System.out.println("ENTER " + va.toUpperCase() + " BELOW");///System generated later on
-					loginDetails.put(va, sc.next());
-				}
 			} else if (va == "address") {	
 
 				System.out.println("ENTER ADDRESS BELOW");
-				String[] scv = new String[5];
+				String[] scv = new String[2];
 				for(int m=0;m<addresss.length;m++) {
 					System.out.println(addresss[m]);
-					scv[m] = sc.next();
+					scv[m] = sc.nextLine();
 				}
 				
 				// loop through some value
 				loginDetails.put("address", String.join("\n ", scv));
 			} else if (va == "nxtMenu") {}
 			else {
+				sc.nextLine();
 				System.out.println("ENTER " + va.toUpperCase() + " BELOW");
-				loginDetails.put(va, sc.next());
+				loginDetails.put(va, sc.nextLine());
 			}
 		}		
 		while(true) {
