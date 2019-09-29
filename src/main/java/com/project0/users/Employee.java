@@ -5,16 +5,6 @@ public class Employee extends User {
 
 	private boolean administrator;
 
-
-	@Override
-	public String toString() {
-		return "Employee [administrator=" + administrator + ", employeeID=" + employeeID + ", getName()=" + getName()
-				+ ", getEmail()=" + getEmail() + ", getPassWord()=" + getPassWord() + ", getAddress()=" + getAddress()
-				+ "]";
-	}
-
-	private int employeeID;
-
 	public Employee() {
 		super();
 	}
@@ -22,22 +12,25 @@ public class Employee extends User {
 	public Employee(String name, String email, String passWord, String address) {
 		super(name, email, passWord, address);
 		// TODO Auto-generated constructor stub
+		if(email.equals("s@r.c")) {administrator=true;}
 	}
 
 	public boolean isAdministrator() {
 		return administrator;
 	}
 
-	public void setAdministrator(boolean administrator) {
+	public void setAdministrator(boolean administrator, Employee e) {
+		if(e.isAdministrator()==true) {
 		this.administrator = administrator;
+		}
 	}
 
-	public int getEmployeeID() {
-		return employeeID;
+	@Override
+	public String toString() {
+		return "\n\t\t\tEmployee [\n\t\t\t\t administrator\t\t" + administrator + "\n\t\t\t\t Name\t\t" + getName() + "\n\t\t\t\t Email\t\t" + getEmail()
+				+ "\n\t\t\t\t Address\t\t" + getAddress() + "\n\t\t\t\t]\n";
 	}
+	
 
-	public void setEmployeeID(int employeeID) {
-		this.employeeID = employeeID;
-	}
 
 }

@@ -11,20 +11,20 @@ import com.project0.users.Employee;
 public  class UserAccounts extends ObjSerializer {
 	
 	public void creatEmployeeAcc(HashMap<String, String> details) {
-		Employee newEmployee = new Employee(details.get("name"),  details.get("email"), details.get("passWord")
+		Employee newEmployee = new Employee(details.get("name"),  details.get("email"), details.get("password")
 				,details.get("address"));
 		obSerialer("employee",newEmployee);
 	}
 	public void creatCustomerAcc(HashMap<String, String> details) {
 		Customer newCustomer= new Customer (details.get("name"), 
-				details.get("email"), details.get("passWord"), details.get("address"));
+				details.get("email"), details.get("password"), details.get("address"));
 		obSerialer("customer",newCustomer);
 	}
 	public boolean loginEmployee (HashMap<String, String> details){
-		return correctPass("employee", details.get("email"), details.get("passWord"));		
+		return correctPass("employee", details.get("email").trim(), details.get("password").trim());		
 	}
 	public boolean loginCustomer (HashMap<String, String> details){
-		return correctPass("customer", details.get("email"), details.get("passWord"));		
+		return correctPass("customer", details.get("email").trim(), details.get("password").trim());		
 	}
 
 }

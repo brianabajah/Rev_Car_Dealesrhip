@@ -17,20 +17,34 @@ public class ObjSerializer implements FileLocation {
 	private static HashMap<String, Object> allData;
 	private static HashMap<String, Employee> allEmployees;
 	private static HashMap<String, Customer> allCustomers;
+	private static HashMap<Integer, Car> allCars;
 	private static File f = new File(locale);
 
 //	private static HashMap<String,Object> allData= new HashMap<>();
 
-//	public static void main(String[] args) {
-////		Employee employ= new Employee("Brian", "test@gm.c", "random", "tampa fl");
-////		Employee employ= new Employee("Ken", "vest@gm.c", "random", "tampa fl");
-////		obSerialer("employee",employ);
-////		allEmployees = (HashMap<String, Employee>) readObjectList().get("employee");
-////		
-////		System.out.println(readObjectList().get("employee"));
-//		
-////		System.out.println(correctPass("employee", "test@gm.c", "rrt"));
-//	}
+	public static void main(String[] args) {
+		Car car =new Car("Toyota","M2",2015, 16000);
+		Car car2 =new Car("Jeep","Hipstar",2020, 20000);
+		Car car3 =new Car("Mini","Cooper",1987, 7000);
+		obSerialer("car",car);
+		obSerialer("car",car2);
+		obSerialer("car",car3);
+		Employee employ= new Employee("Brian", "b@gmc", "b", "tampa fl");
+		Employee employ2= new Employee("Ken", "vest@gm.c", "k", "tampa fl");
+		obSerialer("employee",employ);
+		obSerialer("employee",employ2);
+		Customer cus= new Customer("Brian", "b@gmc", "b", "tampa fl");
+		Customer cus2= new Customer("Ken", "vest@gm.c", "k", "tampa fl");
+		obSerialer("customer",cus);
+		obSerialer("customer",cus2);
+//		allEmployees = (HashMap<String, Employee>) readObjectList().get("employee");
+		
+//		System.out.println(readObjectList().get("customer"));
+		readObjectList().forEach((key,val)->System.out.println("\n"+key+"\t" + val.toString().replace(",", "\t\t") +"\n"));
+//		String s = ((Customer)((HashMap<String, Customer>)readObjectList().get("customer")).get("j@g.c")).getPassWord();
+//		System.out.println(s);
+//		System.out.println(correctPass("customer", "j@g.c", "1234"));
+	}
 
 	@SuppressWarnings("unchecked")
 	public static void obSerialer(String dataType, Object hash) {
@@ -60,11 +74,29 @@ public class ObjSerializer implements FileLocation {
 				if (allCustomers.containsKey(cus.getEmail())) {
 					System.out.println("An account under the email " + cus.getEmail() + " already Exists!");
 				} else {
-					Customer inCus = (Customer) hash;
-					inCus.setCustomerID(customerId());
-					allCustomers.put(cus.getEmail(), inCus);
+					cus.setCustomerID(customerId());
+					allCustomers.put(cus.getEmail(), cus);
 					allData.put("customer", allCustomers);
 				}
+			}
+			else if (dataType == "car") {
+				Car car = (Car) hash;
+				allCars = (HashMap<Integer, Car>)allData.get("cars");
+				if(allCars!=null) {
+					if (allCars.containsKey(car.getCarId())) {
+						System.out.println("The vehicle of Id: " + car.getCarId() + " already Exists!");
+					} else {
+						car.setCarId(carId());
+						allCars.put(car.getCarId(), car);
+						allData.put("car", allCars);
+					}
+				}else {
+					car.setCarId(carId());
+					allCars.put(car.getCarId(), car);
+					allData.put("car", allCars);
+				}
+				
+				
 			}
 			writeObjectList(allData);
 		}
@@ -112,7 +144,7 @@ public class ObjSerializer implements FileLocation {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static HashMap<String, Object> readObjectList() {
+	protected static HashMap<String, Object> readObjectList() {
 
 		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(locale))) {
 			HashMap<String, Object> retData = (HashMap<String, Object>) ois.readObject();
@@ -131,7 +163,7 @@ public class ObjSerializer implements FileLocation {
 
 	}
 
-	private static void writeObjectList(HashMap<String, Object> o) {
+	protected static void writeObjectList(HashMap<String, Object> o) {
 
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(locale))) {
 
@@ -147,12 +179,15 @@ public class ObjSerializer implements FileLocation {
 	private static boolean fileCheck(String dataType, Object hash) {
 		boolean out = f.exists();
 		if (!out) {// first time app run so that there will always be a file
+			Employee spEm=new Employee("Super User", "s@r.c", "0", "main");//create and set superUser
+			allEmployees= new HashMap<String, Employee>();
+			allEmployees.put(spEm.getEmail(), spEm);
 			try {
 				f.createNewFile();
 				allData = new HashMap<String, Object>();
-				allData.put("employee", new HashMap<String, Employee>());
+				allData.put("employee", allEmployees);
 				allData.put("customer", new HashMap<String, Customer>());
-				allData.put("cars", new HashMap<String, Car>());
+				allData.put("car", new HashMap<Integer, Car>());
 				writeObjectList(allData);// or EofError
 				if (hash != null) {
 					obSerialer(dataType, hash);
@@ -166,8 +201,13 @@ public class ObjSerializer implements FileLocation {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static int customerId() {
+	private static int customerId() {
 		allCustomers = (HashMap<String, Customer>) readObjectList().get("customer");
 		return allCustomers.size();
 	}
+	@SuppressWarnings("unchecked")
+	protected static int carId() {
+		allCars = (HashMap<Integer, Car>) readObjectList().get("car");
+		return allCars.size();
+	} 
 }

@@ -8,9 +8,9 @@ public class Customer extends User  {
 	
 	@Override
 	public String toString() {
-		return "Customer [customerID=" + customerID + ", PaymentDetails=" + PaymentDetails + ", getName()=" + getName()
-				+ ", getEmail()=" + getEmail() + ", getPassWord()=" + getPassWord() + ", getAddress()=" + getAddress()
-				+ "]";
+		return "\n\t\t\tCustomer [\n\t\t\t\t customerID\t\t" + customerID + "\n\t\t\t\t PaymentDetails \t\t" + PaymentDetails + ""
+				+ ",\n\t\t\t\t Name\t\t" + getName()+ "\n\t\t\t\t Email\t\t" + getEmail() + "\n\t\t\t\tAddress\t\t" + getAddress()
+				+ "n\t\t\t\t]\n";
 	}
 
 	
