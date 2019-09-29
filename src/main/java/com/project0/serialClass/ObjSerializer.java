@@ -23,20 +23,20 @@ public class ObjSerializer implements FileLocation {
 //	private static HashMap<String,Object> allData= new HashMap<>();
 
 	public static void main(String[] args) {
-		Car car =new Car("Toyota","M2",2015, 16000);
-		Car car2 =new Car("Jeep","Hipstar",2020, 20000);
-		Car car3 =new Car("Mini","Cooper",1987, 7000);
-		obSerialer("car",car);
-		obSerialer("car",car2);
-		obSerialer("car",car3);
-		Employee employ= new Employee("Brian", "b@gmc", "b", "tampa fl");
-		Employee employ2= new Employee("Ken", "vest@gm.c", "k", "tampa fl");
-		obSerialer("employee",employ);
-		obSerialer("employee",employ2);
-		Customer cus= new Customer("Brian", "b@gmc", "b", "tampa fl");
-		Customer cus2= new Customer("Ken", "vest@gm.c", "k", "tampa fl");
-		obSerialer("customer",cus);
-		obSerialer("customer",cus2);
+//		Car car =new Car("Toyota","M2",2015, 16000);
+//		Car car2 =new Car("Jeep","Hipstar",2020, 20000);
+//		Car car3 =new Car("Mini","Cooper",1987, 7000);
+//		obSerialer("car",car);
+//		obSerialer("car",car2);
+//		obSerialer("car",car3);
+//		Employee employ= new Employee("Brian", "br@gm.c", "b", "tampa fl");
+//		Employee employ2= new Employee("Bae", "vest@gm.c", "k", "tampa fl");
+//		obSerialer("employee",employ);
+//		obSerialer("employee",employ2);
+//		Customer cus= new Customer("Brenda", "b@gm.c", "b", "tampa fl");
+//		Customer cus2= new Customer("Brick", "vest@gm.c", "k", "tampa fl");
+//		obSerialer("customer",cus);
+//		obSerialer("customer",cus2);
 //		allEmployees = (HashMap<String, Employee>) readObjectList().get("employee");
 		
 //		System.out.println(readObjectList().get("customer"));

@@ -12,8 +12,8 @@ public class Car implements Serializable  {
 	private int price;
 	private int year;
 	private String owner;
-	private TreeMap<String,Integer> offers;
-	private TreeMap<String,Float> payment;
+	private TreeMap<String,Integer> offers=new TreeMap<>();
+	private TreeMap<String,Float> payment=new TreeMap<>();
 
 	public String getBrand() {
 		return brand;
