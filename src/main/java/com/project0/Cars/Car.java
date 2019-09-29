@@ -58,7 +58,7 @@ public class Car implements Serializable  {
 
 	public Car(String brand, String make, int year, int price) {
 		super();
-		this.price = price;
+		this.setPrice(price);
 		this.brand = brand;
 		this.make = make;
 		this.year = year;
@@ -84,9 +84,17 @@ public class Car implements Serializable  {
 	@Override
 	public String toString() {
 		return "\n\t\t\tCar [\n\t\t\t\t carId\t\t" + carId + "\n\t\t\t\t brand\t\t" + brand + "\n\t\t\t\t make\t\t" +
-				make + "\n\t\t\t\t year\t\t" + year + "\n\t\t\t\t owner\t\t" + owner
+				make + "\n\t\t\t\t year\t\t" + year + "\n\t\t\t\t owner\t\t" + owner+ "\n\t\t\t\t price\t\t" + price
 				+ "\n\t\t\t\tpayment=" + payment + "\n\t\t\t\t]\n";		
 		
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 		

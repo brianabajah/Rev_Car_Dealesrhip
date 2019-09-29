@@ -44,10 +44,9 @@ public class Driver extends Menus {
 						// go to customer
 						customerMenu(sc,details.get("email"));
 					} else {
-						System.out.println("\n\n\t\tWrong PassWord/Email\n\n");
-						menuSelect = details.get("nxtMenu");
+						System.out.println("\n\n\t\tWrong PassWord/Email\n\n");						
 					}
-					
+					menuSelect = details.get("nxtMenu");
 					break;
 				case "2":
 					details = userInput.login("employee", sc);
@@ -55,9 +54,9 @@ public class Driver extends Menus {
 						// go to customer						
 						employeeMenu(sc,details.get("email"));
 					} else {
-						System.out.println("\n\n\t\tWrong PassWord/Email\n\n");
-						menuSelect = details.get("nxtMenu");
+						System.out.println("\n\n\t\tWrong PassWord/Email\n\n");						
 					}
+					menuSelect = details.get("nxtMenu");
 					break;
 				case "3":
 					accCreateOptions();

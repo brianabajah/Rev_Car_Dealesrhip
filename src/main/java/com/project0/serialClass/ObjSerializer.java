@@ -22,6 +22,8 @@ public class ObjSerializer implements FileLocation {
 
 //	private static HashMap<String,Object> allData= new HashMap<>();
 
+	
+	
 	public static void main(String[] args) {
 //		Car car =new Car("Toyota","M2",2015, 16000);
 //		Car car2 =new Car("Jeep","Hipstar",2020, 20000);
@@ -38,12 +40,12 @@ public class ObjSerializer implements FileLocation {
 //		obSerialer("customer",cus);
 //		obSerialer("customer",cus2);
 //		allEmployees = (HashMap<String, Employee>) readObjectList().get("employee");
-		
-//		System.out.println(readObjectList().get("customer"));
+//		
+////		System.out.println(readObjectList().get("customer"));
 		readObjectList().forEach((key,val)->System.out.println("\n"+key+"\t" + val.toString().replace(",", "\t\t") +"\n"));
-//		String s = ((Customer)((HashMap<String, Customer>)readObjectList().get("customer")).get("j@g.c")).getPassWord();
-//		System.out.println(s);
-//		System.out.println(correctPass("customer", "j@g.c", "1234"));
+////		String s = ((Customer)((HashMap<String, Customer>)readObjectList().get("customer")).get("j@g.c")).getPassWord();
+////		System.out.println(s);
+////		System.out.println(correctPass("customer", "j@g.c", "1234"));
 	}
 
 	@SuppressWarnings("unchecked")
