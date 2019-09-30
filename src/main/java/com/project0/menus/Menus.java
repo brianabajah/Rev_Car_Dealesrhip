@@ -1,7 +1,12 @@
 package com.project0.menus;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.TreeMap;
+
 import com.project0.Cars.Car;
 import com.project0.logicalControllers.UserInput;
 import com.project0.serialClass.ObjSerializer;
@@ -54,9 +59,10 @@ public class Menus extends ObjSerializer {
 		//make offer
 		//view my cars display with view remaining payment
 		//
-
+		refresher();
 	}
 	private static void offerPage(Scanner sc, String email) {
+		refresher();
 		viewCars("RevDealers");
 		int menu;
 		while(true) {
@@ -66,26 +72,30 @@ public class Menus extends ObjSerializer {
 		if(menu==1) {
 			makeOffer(sc,email);
 		}else if(menu==2) break;
-		}
+		}refresher();
 	}
 	
 	private static void myCarsMenu(Customer cus,Scanner sc) {
+		refresher();
 		System.out.println("\n\n\t\tMy Cars");
-		viewCars(cus.getEmail());
+		ArrayList<String> mycars=viewCars(cus.getEmail());
 		int menu;
 		while(true) {
 			System.out.println("Select 1 to make payment:\nSelect 2 to go back tp previous menu:");
 			menu = sc.nextInt();
 			if(menu==1) {
-				System.out.println("Making Payment");break;
+				makePayment(sc,mycars);
+				System.out.println("Making Payment")
+				;break;
 			}else if(menu==2) {
 				break;
 			}
 			
-		}
+		}refresher();
 		
 	}
 	public static void employeeMenu(Scanner sc, String email) {
+		refresher();
 		everything = readObjectList();
 		Employee emply = (Employee)allEmployees.get(email);
 		userInput.divider(emply.getName());
@@ -116,10 +126,12 @@ public class Menus extends ObjSerializer {
 		// View Car Offers
 		// view Payment
 		// Admin Tools----Get employee from list and make Admin
+		refresher();
 
 	}
 
 	private static void carlotPage(Scanner sc) {
+		refresher();
 		viewCars("RevDealers");
 		String menu = "";int y=0;
 		while(true) {
@@ -164,9 +176,11 @@ public class Menus extends ObjSerializer {
 				System.out.println("Wrong Input! Try Again");
 			}
 		}
+		refresher();
 	}
 
 	private static void paymentsMenu(Scanner sc) {
+		refresher();
 		viewBoughtCars("filt");
 		String filt="filt";
 		while (true) {
@@ -185,6 +199,7 @@ public class Menus extends ObjSerializer {
 		}
 	}
 	private static void viewBoughtCars(String filt) {
+		refresher();
 		userInput.divider("===============");
 		refresher();
 		if(filt == "filt") {
@@ -205,16 +220,19 @@ public class Menus extends ObjSerializer {
 			
 		}
 	}
-	public static void viewCars(String who) {
+	public static ArrayList<String> viewCars(String who) {
+		refresher();
+		ArrayList<String> out=new ArrayList<>();
 		userInput.divider("===============");
 		allLotCars.forEach((key, val) -> {
 
 			if (((Car) val).getOwner().equals(who)) {
+				out.add(key.toString());
 				System.out.println("Select\t" + key + "\t to choose:\t\t" + val);
 			}
 		});
 		userInput.divider("===============");
-
+		return out;
 	}
 
 	protected static void makeOffer(Scanner sc, String email) {		
@@ -244,22 +262,51 @@ public class Menus extends ObjSerializer {
 			}
 			
 		}
+		refresher();
 	}
 
-	private static void makePayment(Scanner sc, int x) {//loop through and select car by owner 
+	private static void makePayment(Scanner sc, ArrayList<String> mycars) {//loop through and select car by owner 
+		refresher();
 		userInput.divider("Make Payment");
-		float amount = 0; int card = 0 ;
+		System.out.println("Select Car By CAR_ID to make payment");
+		String car="";
+		while(!mycars.contains(car=sc.next())) {
+			System.out.println("Select Between "+mycars.toString());
+		}
+		Car carO=allLotCars.get(Integer.parseInt(car));
+		TreeMap<String,Float> tm;
+		if(carO.getPayment()!=null) {
+		 tm=carO.getPayment();
+		}
+		else {
+			tm= new TreeMap<String,Float> ();
+		}
+		float amount = 0; int  exiter=100 ;
 		while(true) {
-			System.out.println("Enter Payment Card Number Below:");
-			card=sc.nextInt();
+			try {
 			System.out.println("Enter Amount Below:");
 			amount = sc.nextFloat();
-			System.out.println("Select 0 to Finish:");
-			if(sc.nextInt()==0) {
+			System.out.println(" Select 0 to Clear and EXIT:\n Select 1 to Submit and EXIT");
+			exiter = sc.nextInt();
+			if(exiter==0 || exiter==1) {
 				break;
+			}	}
+			catch(NumberFormatException e) {
+				System.out.println("Please Type Numbers Only");
 			}
-			
 		}
+		if(exiter==1) {
+		LocalDate localDate = LocalDate.now();
+		String timedate= DateTimeFormatter.ofPattern("MM/dd/yyyy").format(localDate);
+		tm.put(timedate, amount);
+		carO.setPayment(tm);
+		allLotCars.put(carO.getCarId(), carO);
+		everything.put("car", allLotCars);
+		writeObjectList(everything);
+		refresher();		
+		}
+		
+		
 	}	
 
 	private static void addCar(Scanner sc) {

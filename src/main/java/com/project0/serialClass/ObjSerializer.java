@@ -24,7 +24,7 @@ public class ObjSerializer implements FileLocation {
 
 	
 	
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
 //		Car car =new Car("Toyota","M2",2015, 16000);
 //		Car car2 =new Car("Jeep","Hipstar",2020, 20000);
 //		Car car3 =new Car("Mini","Cooper",1987, 7000);
@@ -39,14 +39,14 @@ public class ObjSerializer implements FileLocation {
 //		Customer cus2= new Customer("Brick", "vest@gm.c", "k", "tampa fl");
 //		obSerialer("customer",cus);
 //		obSerialer("customer",cus2);
-//		allEmployees = (HashMap<String, Employee>) readObjectList().get("employee");
-//		
-////		System.out.println(readObjectList().get("customer"));
-		readObjectList().forEach((key,val)->System.out.println("\n"+key+"\t" + val.toString().replace(",", "\t\t") +"\n"));
-////		String s = ((Customer)((HashMap<String, Customer>)readObjectList().get("customer")).get("j@g.c")).getPassWord();
-////		System.out.println(s);
-////		System.out.println(correctPass("customer", "j@g.c", "1234"));
-	}
+////		allEmployees = (HashMap<String, Employee>) readObjectList().get("employee");
+////		
+//////		System.out.println(readObjectList().get("customer"));
+//		readObjectList().forEach((key,val)->System.out.println("\n"+key+"\t" + val.toString().replace(",", "\t\t") +"\n"));
+//////		String s = ((Customer)((HashMap<String, Customer>)readObjectList().get("customer")).get("j@g.c")).getPassWord();
+//////		System.out.println(s);
+//////		System.out.println(correctPass("customer", "j@g.c", "1234"));
+//	}
 
 	@SuppressWarnings("unchecked")
 	public static void obSerialer(String dataType, Object hash) {
