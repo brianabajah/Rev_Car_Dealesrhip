@@ -18,11 +18,11 @@ import com.project0.users.Customer;
 import com.project0.users.Employee;
 
 public class Menus {
-	
+
 	final static Logger logger = Logger.getLogger(Menus.class);
-	
-	private Menus menus= new Menus();
-	private DataAcessor dAccesor= new DataAcessor();	
+
+	private Menus menus = new Menus();
+	private DataAcessor dAccesor = new DataAcessor();
 	private UserInput userInput = new UserInput();
 
 	public void mainMenu() {
@@ -37,7 +37,7 @@ public class Menus {
 	}
 
 	public void customerMenu(Scanner sc, String email) {
-		
+
 		Customer custm = menus.dAccesor.readCustomers("email").get(email);
 		userInput.divider(custm.getName());
 		String menu = "";
@@ -55,11 +55,11 @@ public class Menus {
 				break;
 			}
 		}
-		
+
 	}
 
 	private void offerPage(Scanner sc, String email) {
-		
+
 		viewCars("Revdealers");
 		int menu;
 		while (true) {
@@ -71,11 +71,11 @@ public class Menus {
 			} else if (menu == 2)
 				break;
 		}
-		
+
 	}
 
 	private void myCarsMenu(Customer cus, Scanner sc) {
-		
+
 		System.out.println("\n\n\t\tMy Cars");
 		ArrayList<String> mycars = viewCars(cus.getEmail());
 		int menu;
@@ -91,12 +91,11 @@ public class Menus {
 			}
 
 		}
-		
 
 	}
 
 	public void employeeMenu(Scanner sc, String email) {
-		
+
 		Employee emply = menus.dAccesor.readEmployee(email).get(email);
 		userInput.divider(emply.getName());
 		String menu = "";
@@ -104,6 +103,7 @@ public class Menus {
 			System.out.println("Select:\t 1:\t View All Available Cars");
 			System.out.println("Select:\t 2:\t View Car Payments");
 			System.out.println("Select:\t 3:\t Add new Car");
+			System.out.println("Select:\t 4:\t Remove Car from lot");
 			System.out.println("Select:\t 5:\t Back to Main Menu");
 			menu = sc.next();
 			if (menu.equals("1")) {
@@ -112,16 +112,41 @@ public class Menus {
 				paymentsMenu(sc);
 			} else if (menu.equals("3")) {
 				addCar(sc);
-			}	else if (menu.equals("5")) {
+			} else if (menu.equals("4")) {
+				removeCar(sc);
+			} else if (menu.equals("5")) {
 				break;
 			}
 		}
-		
 
 	}
 
+	private void removeCar(Scanner sc) {
+		userInput.divider("===============");
+		HashMap<Integer,Car> lotCars= menus.dAccesor.readCar("Revdealers");		
+		hushprint(lotCars);
+		while(true) {
+		System.out.println("Select Car by Id To delete");
+		System.out.println("Select:\t E:\t for previous Menu");
+		int carId;
+		String x=sc.next();
+		if (x.toUpperCase().equals("E")) {
+			break;
+		}else {
+		try {
+			carId = Integer.parseInt(x);
+			menus.dAccesor.deleteCars(carId);			
+
+		} catch (NumberFormatException e) {
+			System.out.println("\t\tWRONG INPUT\n\n");
+			logger.error(e);
+		}
+		
+		}}
+	}
+
 	private void carlotPage(Scanner sc) {
-		viewCars("Revdealers");
+		ArrayList<String> indexes=viewCars("Revdealers");
 		String menu = "";
 		int y = 0;
 		while (true) {
@@ -132,8 +157,12 @@ public class Menus {
 				break;
 			} else {
 				try {
+					if(indexes.contains(menu)) {
 					y = Integer.parseInt(menu);
 					acceptDenieOffers(y, sc);
+					}else {
+						System.out.println("choose among the followig keys: "+indexes.toString());
+					}
 
 				} catch (NumberFormatException e) {
 					System.out.println("\t\tWRONG INPUT\n\n");
@@ -145,13 +174,12 @@ public class Menus {
 	}
 
 	private void acceptDenieOffers(int y, Scanner sc) {
-		TreeMap<String, Integer[]> offers=menus.dAccesor.getOffers(y);
+		TreeMap<String, Integer[]> offers = menus.dAccesor.getOffers(y);
 		System.out.println("\n\n\n");
-		offers.forEach((a,b)->{
-			System.out.print(a+"\t\t\t");
-			System.out.println("CarId : "+ b[0]+ "\t\tAmount :"+b[1]);
-		}		
-				);
+		offers.forEach((a, b) -> {
+			System.out.print(a + "\t\t\t");
+			System.out.println("CarId : " + b[0] + "\t\tAmount :" + b[1]);
+		});
 		String menu = "";
 		while (true) {
 			System.out.println("Type Email to accept offer:");
@@ -170,7 +198,7 @@ public class Menus {
 	}
 
 	private void paymentsMenu(Scanner sc) {
-		
+
 		viewBoughtCars("filt");
 		String filt = "filt";
 		while (true) {
@@ -193,17 +221,19 @@ public class Menus {
 
 	private void viewBoughtCars(String filt) {
 		userInput.divider("===============");
+		
+		HashMap<Integer, Car> allLotCars=menus.dAccesor.readCar("");
 		if (filt == "filt") {
 			allLotCars.forEach((key, val) -> {
 
-				if (!((Car) val).getOwner().equals("RevDealers")) {
-					System.out.println(key + "\t" + val + "\t\tPayment \t" + ((Car) val).getPayment());
+				if (!((Car) val).getOwner().equals("Revdealers")) {
+					System.out.println(key + "\t" + val + "\n\tPayment \t" + ((Car) val).getPayment());
 				}
 			});
 		} else {
 			allLotCars.forEach((key, val) -> {
 				if (key.equals(Integer.parseInt(filt))) {
-					if (!((Car) val).getOwner().equals("RevDealers")) {
+					if (!((Car) val).getOwner().equals("Revdealers")) {
 						System.out.println(key + "\t" + val + "\t\tPayment \t" + ((Car) val).getPayment());
 					}
 				}
@@ -213,9 +243,9 @@ public class Menus {
 	}
 
 	public ArrayList<String> viewCars(String who) {
-		
+
 		ArrayList<String> out = new ArrayList<>();
-		userInput.divider("===============");		
+		userInput.divider("===============");
 		menus.dAccesor.readCar(who).forEach((key, val) -> {
 			out.add(key.toString());
 			System.out.println("Select\t" + key + "\t to choose:\t\t" + val);
@@ -225,7 +255,7 @@ public class Menus {
 	}
 
 	protected void makeOffer(Scanner sc, String email) {
-		
+
 		int x, amount = 0;
 		while (true) {
 			System.out.println("What is your Car Selection:\nSelect Car by number on the left:");
@@ -233,9 +263,7 @@ public class Menus {
 			if (menus.dAccesor.readCar("Revdealers").keySet().contains(x)) {
 				System.out.println("Enter Offer Amount:");
 				amount = sc.nextInt();
-				menus.dAccesor.addOffers(x,
-										menus.dAccesor.readCustomers(email).get(email).getCustomerID(),
-										amount);
+				menus.dAccesor.addOffers(x, menus.dAccesor.readCustomers(email).get(email).getCustomerID(), amount);
 				System.out.println("\n\nOffer of " + amount + " made.\n");
 				break;
 			} else {
@@ -246,11 +274,11 @@ public class Menus {
 			}
 
 		}
-		
+
 	}
 
 	private void makePayment(Scanner sc, ArrayList<String> mycars) {// loop through and select car by owner
-		
+
 		userInput.divider("Make Payment");
 		System.out.println("Select Car By CAR_ID to make payment");
 		String car = "";
@@ -288,7 +316,7 @@ public class Menus {
 			allLotCars.put(carO.getCarId(), carO);
 			everything.put("car", allLotCars);
 			writeObjectList(everything);
-			
+
 		}
 
 	}
@@ -319,5 +347,11 @@ public class Menus {
 
 	}
 
+	private <T,M> void hushprint(HashMap<T,M> hsh) {
 
+		hsh.forEach((a, b) -> {
+			System.out.println(a+"\t\t\t"+b);
+		});
+
+	}
 }

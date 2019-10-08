@@ -154,7 +154,24 @@ public class DataAcessor {
 			return -1;
 		}		
 	}
-
+	
+	public int deleteCars(int car) {
+		Connector connect= new Connector();
+		Connection con= connect.connection();
+		String sql="delete from cars where carid=? ;";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, car);
+			int x=ps.executeUpdate();
+			ps.close();
+			con.close();
+			return x;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}		
+	}
+	
 	public int addOffers(int carId, int userid, int offeramount) {
 		Connector conects = new Connector();
 		Connection con = conects.connection();
@@ -216,6 +233,30 @@ public class DataAcessor {
 			e.printStackTrace();
 			return -1;
 		}	
+		
+	}
+
+	public TreeMap<String, Integer> getpayments(String email, int carid){
+		Connector conect= new Connector();
+		Connection con= conect.connection();
+		String sql ="select paymentdate, amountpayed from( select email,carid, paymentdate,amountpayed "
+				+ "from \"customer\"a, \"payment\"b where a.customerId=b.userid) as broke "
+				+ "where carid=? and email=?;";
+		try {
+			PreparedStatement ps =con.prepareStatement(sql);			
+			ps.setInt(1, carid);
+			ps.setString(2, email);
+			ResultSet rs = ps.executeQuery();
+			TreeMap<String, Integer> out = new TreeMap<>();
+			while(rs.next()) {
+				out.put(rs.getString(1), rs.getInt(2)); 
+			}
+			return out;
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}				
 		
 	}
 }
