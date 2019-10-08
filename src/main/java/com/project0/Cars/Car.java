@@ -1,10 +1,7 @@
 package com.project0.Cars;
 
-import java.io.Serializable;
-import java.util.TreeMap;
 
-@SuppressWarnings("serial")
-public class Car implements Serializable  {
+public class Car  {
 	
 	private int carId;
 	private String brand;

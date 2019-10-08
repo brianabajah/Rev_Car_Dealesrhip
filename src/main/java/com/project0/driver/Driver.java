@@ -9,27 +9,23 @@ import com.project0.logicalControllers.UserAccounts;
 import com.project0.logicalControllers.UserInput;
 import com.project0.menus.Menus;
 
-public class Driver {
+public class Driver extends Menus{
 
 	final static Logger logger = Logger.getLogger(Driver.class);
-	static UserInput userInput;
-	static UserAccounts userAccounts;
+	static UserInput userInput= new UserInput();
+	UserAccounts userAccounts = new UserAccounts();
 	static HashMap<String, String> details;
 	static Scanner sc;
-	private Menus menus= new Menus();
 	private static String menuSelect = "9";// main menu
 
 	public static void main(String[] args) {
-		userAccounts = new UserAccounts();
-		userInput = new UserInput();
+//		userInput = new UserInput();
 		userInput.loginRequirements();// create hashmap to store variables
 		sc = new Scanner(System.in);
 		Driver driver= new Driver();
 		logger.info("Scanner open");
 		driver.systemOs();
-
-		sc.close();
-		
+		sc.close();		
 	}
 
 	private void systemOs() {
@@ -48,7 +44,7 @@ public class Driver {
 					if (userAccounts.loginCustomer(details)) {
 						// go to customer
 						logger.info("Customer LogIn:" + details.get("email"));
-						menus.customerMenu(sc,details.get("email"));
+						customerMenu(sc,details.get("email"));
 					} else {
 						System.out.println("\n\n\t\tWrong PassWord/Email\n\n");						
 					}
@@ -59,7 +55,7 @@ public class Driver {
 					if (userAccounts.loginEmployee(details)) {
 						logger.info("Employee LogIn: " + details.get("email"));
 												
-						menus.employeeMenu(sc,details.get("email"));
+						employeeMenu(sc,details.get("email"));
 					} else {
 						System.out.println("\n\n\t\tWrong PassWord/Email\n\n");						
 					}
@@ -95,7 +91,7 @@ public class Driver {
 	}
 
 	private void mMenu() {
-		menus.mainMenu();
+		mainMenu();
 		menuselector("12309");
 
 	}

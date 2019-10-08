@@ -13,7 +13,10 @@ import com.project0.users.Employee;
 import com.project0.users.User;
 
 public class DataAcessor {
-	
+//	public static void main(String[] args) {
+//		readCustomers("c@g.c");
+//		System.out.println(readCustomers("c@g.c").get("c@g.c").getName());
+//	}
 	public HashMap<String, Customer> readCustomers(String email) {
 		try {
 			Connector conects = new Connector();
@@ -111,7 +114,7 @@ public class DataAcessor {
 			Connection con = conects.connection();
 			String sql = "select * from cars ";
 			if (justOne) {
-				sql = "select * from cars where \"carOwner\"= ? ";
+				sql = "select * from cars where \"carowner\"= ? ";
 			}
 			PreparedStatement ps = con.prepareStatement(sql);
 			if (justOne) {
@@ -122,6 +125,8 @@ public class DataAcessor {
 			while (rs.next()) {
 				cus.put(rs.getInt(1),
 						new Car(rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5)));
+				
+				cus.get(rs.getInt(1)).setCarId(rs.getInt(1));;
 				cus.get(rs.getInt(1)).setOwner(rs.getString(6));
 			}
 			ps.close();
@@ -193,18 +198,28 @@ public class DataAcessor {
 		
 	}
 	
-	public TreeMap<String, Integer[]> getOffers(int carid){   //email  amount
+	public TreeMap<String, Integer[]> getOffers(int carid, int custid){   //email  amount
 		Connector conect= new Connector();
 		Connection con= conect.connection();
-		String sql ="select * from (select email, carid,amount, boughtby from \"customer\"a,\"offers\"b where a.customerId=b.userid) as billynare where carid=? and \"boughtby\" is null ;";
+		String sql="";
+		int useme=0;
+		if(custid==0 && carid!=0) {
+		sql ="select * from (select email, carid,amount, boughtby from \"customer\"a,\"offers\"b where a.customerId=b.userid) as billynare where carid=? and \"boughtby\" is null ;";
+		useme=carid;
+		}else if(custid!=0 && carid==0) {
+			sql ="select * from (select email, carid,amount, boughtby, customerId from \"customer\"a,\"offers\"b where a.customerId=b.userid) as billynare where customerId=? and \"boughtby\" is null ;";
+			useme=custid;
+		}
 		try {
 			PreparedStatement ps =con.prepareStatement(sql);
-			ps.setInt(1, carid);
+			ps.setInt(1, useme);
 			ResultSet rs = ps.executeQuery();
 			TreeMap<String, Integer[]> out = new TreeMap<>();
 			while(rs.next()) {
 				out.put(rs.getString(1), new Integer[] {rs.getInt(2),rs.getInt(3)}); 
 			}
+			ps.close();
+			con.close();
 			return out;
 			
 			} catch (SQLException e) {
@@ -212,8 +227,33 @@ public class DataAcessor {
 				return null;
 			}				
 	}
+
 	
-	public int setOwnerInOffers(int carId ,String email) {
+	
+	public int getTotalOffersPerCar(int carid) {
+		Connector conect= new Connector();
+		Connection con= conect.connection();
+		String sql ="select count(userid) from offers where carid=?;";
+		try {
+			PreparedStatement ps =con.prepareStatement(sql);
+			ps.setInt(1, carid);
+			ResultSet rs = ps.executeQuery();
+			int out = 0;
+			while(rs.next()) {
+				out=rs.getInt(1); 
+			}
+			ps.close();
+			con.close();
+			return out;
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			}				
+	}
+	
+	
+ 	public int setOwnerInOffers(int carId ,String email) {
 		Connector connect= new Connector();
 		Connection con= connect.connection();
 		String sql="update cars set carowner='?' where carid=? and carowner='Revdealers';"
@@ -250,7 +290,19 @@ public class DataAcessor {
 			TreeMap<String, Integer> out = new TreeMap<>();
 			while(rs.next()) {
 				out.put(rs.getString(1), rs.getInt(2)); 
+			}		
+			
+			sql="select price, sum(amountpayed) as total from \"cars\"a,\"payment\"b where a.carId=b.carid and a.carId=?  group by a.carid;";
+			ps =con.prepareStatement(sql);
+			//returns 1price total
+			ps.setInt(1, carid);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+			out.put("Total :", rs.getInt(2));
+			out.put("Balance :", rs.getInt(1)-rs.getInt(2));
 			}
+			ps.close();
+			con.close();
 			return out;
 			
 			} catch (SQLException e) {
@@ -259,4 +311,26 @@ public class DataAcessor {
 			}				
 		
 	}
+
+	public int makePayment(int userid,int carid ,int amount , String datez) {
+		Connector connect= new Connector();
+		Connection con= connect.connection();
+		String sql="insert into payment(userid,carid,paymentdate,amountpayed) values(?,?,?,?);";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, userid);
+			ps.setInt(2, carid);
+			ps.setString(3, datez);
+			ps.setInt(4, amount);
+			int x=ps.executeUpdate();
+			ps.close();
+			con.close();
+			return x;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}	
+		
+	}
 }
+
