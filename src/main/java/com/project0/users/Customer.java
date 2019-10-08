@@ -2,7 +2,6 @@ package com.project0.users;
 
 import java.util.TreeMap;
 
-@SuppressWarnings("serial")
 public class Customer extends User  {
 	private int customerID;
 	

@@ -12,8 +12,6 @@ public class Car implements Serializable  {
 	private int price;
 	private int year;
 	private String owner;
-	private TreeMap<String,Integer> offers=new TreeMap<>();
-	private TreeMap<String,Float> payment=new TreeMap<>();
 
 	public String getBrand() {
 		return brand;
@@ -65,27 +63,11 @@ public class Car implements Serializable  {
 		this.owner="RevDealers";
 	}
 
-	public TreeMap<String,Float> getPayment() {
-		return payment;
-	}
-
-	public void setPayment(TreeMap<String,Float> payment) {
-		this.payment = payment;
-	}
-	
-	public TreeMap<String,Integer> getOffers() {
-		return offers;
-	}
-
-	public void setOffers(String email,int amount) {		
-		this.offers.put(email, amount);
-	}
-
 	@Override
 	public String toString() {
 		return "\n\t\t\tCar [\n\t\t\t\t carId\t\t" + carId + "\n\t\t\t\t brand\t\t" + brand + "\n\t\t\t\t make\t\t" +
 				make + "\n\t\t\t\t year\t\t" + year + "\n\t\t\t\t owner\t\t" + owner+ "\n\t\t\t\t price\t\t" + price
-				+ "\n\t\t\t\tpayment=" + payment + "\n\t\t\t\t]\n";		
+				+ "\n\t\t\t\t]\n";		
 		
 	}
 

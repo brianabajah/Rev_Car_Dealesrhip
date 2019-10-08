@@ -3,16 +3,20 @@ package com.project0.driver;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.project0.logicalControllers.UserAccounts;
 import com.project0.logicalControllers.UserInput;
 import com.project0.menus.Menus;
 
-public class Driver extends Menus {
+public class Driver {
 
+	final static Logger logger = Logger.getLogger(Driver.class);
 	static UserInput userInput;
 	static UserAccounts userAccounts;
 	static HashMap<String, String> details;
 	static Scanner sc;
+	private Menus menus= new Menus();
 	private static String menuSelect = "9";// main menu
 
 	public static void main(String[] args) {
@@ -20,14 +24,15 @@ public class Driver extends Menus {
 		userInput = new UserInput();
 		userInput.loginRequirements();// create hashmap to store variables
 		sc = new Scanner(System.in);
-		
-		systemOs();
+		Driver driver= new Driver();
+		logger.info("Scanner open");
+		driver.systemOs();
 
 		sc.close();
-
+		
 	}
 
-	private static void systemOs() {
+	private void systemOs() {
 		boolean exit = true;
 		while (exit) {
 
@@ -42,7 +47,8 @@ public class Driver extends Menus {
 					details = userInput.login("customer", sc);
 					if (userAccounts.loginCustomer(details)) {
 						// go to customer
-						customerMenu(sc,details.get("email"));
+						logger.info("Customer LogIn:" + details.get("email"));
+						menus.customerMenu(sc,details.get("email"));
 					} else {
 						System.out.println("\n\n\t\tWrong PassWord/Email\n\n");						
 					}
@@ -51,8 +57,9 @@ public class Driver extends Menus {
 				case "2":
 					details = userInput.login("employee", sc);
 					if (userAccounts.loginEmployee(details)) {
-						// go to customer						
-						employeeMenu(sc,details.get("email"));
+						logger.info("Employee LogIn: " + details.get("email"));
+												
+						menus.employeeMenu(sc,details.get("email"));
 					} else {
 						System.out.println("\n\n\t\tWrong PassWord/Email\n\n");						
 					}
@@ -87,8 +94,8 @@ public class Driver extends Menus {
 
 	}
 
-	private static void mMenu() {
-		mainMenu();
+	private void mMenu() {
+		menus.mainMenu();
 		menuselector("12309");
 
 	}

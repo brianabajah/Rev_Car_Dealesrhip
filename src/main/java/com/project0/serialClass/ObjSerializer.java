@@ -49,10 +49,11 @@ public class ObjSerializer implements FileLocation {
 //	}
 
 	@SuppressWarnings("unchecked")
-	public static void obSerialer(String dataType, Object hash) {
+	public static boolean obSerialer(String dataType, Object hash) {
 		/**
 		 * Use to add new Objects to file
 		 */
+		boolean out=false;
 
 		if (fileCheck(dataType, hash)) {
 			allData = readObjectList();
@@ -99,10 +100,13 @@ public class ObjSerializer implements FileLocation {
 				}
 				
 				
+			}else {
+				out= false;
 			}
 			writeObjectList(allData);
+			out= true;
 		}
-
+		return out;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -146,7 +150,8 @@ public class ObjSerializer implements FileLocation {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected static HashMap<String, Object> readObjectList() {
+	public
+	static HashMap<String, Object> readObjectList() {
 
 		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(locale))) {
 			HashMap<String, Object> retData = (HashMap<String, Object>) ois.readObject();
@@ -181,7 +186,7 @@ public class ObjSerializer implements FileLocation {
 	private static boolean fileCheck(String dataType, Object hash) {
 		boolean out = f.exists();
 		if (!out) {// first time app run so that there will always be a file
-			Employee spEm=new Employee("Super User", "s@r.c", "0", "main");//create and set superUser
+			Employee spEm=new Employee("super", "super", "super", "super");//create and set superUser
 			allEmployees= new HashMap<String, Employee>();
 			allEmployees.put(spEm.getEmail(), spEm);
 			try {

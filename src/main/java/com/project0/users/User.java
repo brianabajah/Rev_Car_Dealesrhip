@@ -1,9 +1,6 @@
 package com.project0.users;
 
-import java.io.Serializable;
-
-@SuppressWarnings("serial")
-public class User implements Serializable  {
+public class User {
 	private String name;
 	private String email;
 	private String passWord;
