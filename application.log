@@ -83,3 +83,11 @@
 2019-10-08 22:29:14 INFO  Driver:46 - Customer LogIn:c@g.c
 2019-10-08 22:33:07 INFO  Driver:26 - Scanner open
 2019-10-08 22:33:26 INFO  Driver:46 - Customer LogIn:c@g.c
+2019-10-08 22:35:44 INFO  Driver:26 - Scanner open
+2019-10-08 22:36:04 INFO  Driver:46 - Customer LogIn:c@g.c
+2019-10-08 22:56:40 INFO  Driver:26 - Scanner open
+2019-10-08 22:56:57 INFO  Driver:26 - Scanner open
+2019-10-08 22:57:24 INFO  Driver:46 - Customer LogIn:c@g.c
+2019-10-08 23:01:52 INFO  Driver:26 - Scanner open
+2019-10-08 23:02:27 INFO  Driver:46 - Customer LogIn:c@g.c
+2019-10-08 23:03:51 INFO  Menus:342 - Payment of: 500made for CarId: 2By customerId: 1
