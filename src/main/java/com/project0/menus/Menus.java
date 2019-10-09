@@ -25,7 +25,7 @@ public class Menus {
 
 	public void mainMenu() {
 		userInput.divider("===============");
-		System.out.println("            Welcome to RevDelers.\n        Revolutionizing The Motor Industry\n");
+		System.out.println("\t\t\tWelcome to RevDelers.\n\t\tRevolutionizin The Motor Sales Industry\n\t\t   We don't spell good we sell goods\n");
 
 		System.out.println("-------------------------------------------------------");
 		System.out.println("||      1         ||      2         ||       3        ||");

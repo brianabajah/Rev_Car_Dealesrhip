@@ -4,33 +4,26 @@ package com.tester.revCarTest;
 import com.project0.Cars.Car;
 import com.project0.users.Employee;
 import com.project0.users.Customer;
+import com.project0.db.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+
 import org.junit.Test;
 
 public class revCarTest {
 	Car car;
 	Employee employ;
 	Customer customer;
-
-//	obSerialer("car",car);
-//	obSerialer("car",car2);
-//	obSerialer("car",car3);
+	HashMap<Integer, Car> retC;
+	DataAcessor ds = new DataAcessor();
 	
 	@Test
-	public void testObjectCreation() {
-		car =new Car("Testbrand","Testmake",1111, 1111);
+	public void testDatabase() {
+		
 		employ= new Employee("Testname ", "test@email.com", "testpassword", "TestCity TestState");
 		customer =  new  Customer("Testname", "test@email.com", "testpassword", "TestCity TestState");
 		String[] carasserts= {car.getBrand(),car.getMake(),car.getOwner(),""+car.getPrice(),""+car.getYear()};
@@ -41,13 +34,29 @@ public class revCarTest {
 //		assertEquals(carValues[x],car.getOffers());
 	}
 	@Test
-	public void createAccount() {
-		
+	public void testcreatecar() {
+		car =new Car("Testbrand","Testmake",1111, 1111);
+		DataAcessor ds = new DataAcessor();
+		assertEquals(ds.writeCars(car),1);
 	}
 	
+	@Test
+	public void testReadCar() {
+		retC=ds.readCar("Revdealers");
+		assertTrue(retC.size()>0);
+	}
 	
 	@Test
-	public void loginTest() {
+	public void testDeleteCar() {	
+		retC.forEach((key,val)->{
+			if(val.getBrand()=="Testbrand") {
+				assertEquals(ds.deleteCars(key),1);
+			}
+		});		
+	}
+	
+	@Test
+	public void testEmployeeAcc() {
 		
 	}
 }

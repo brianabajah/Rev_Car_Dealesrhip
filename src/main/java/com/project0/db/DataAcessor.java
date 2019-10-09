@@ -83,9 +83,9 @@ public class DataAcessor {
 		Connector conects = new Connector();
 		String sql="";
 		if(u instanceof Employee) {
-			sql="insert into employees(\"name\",email,password,address) values(?,?,?,?)";
+			sql="insert into employees(\"name\",email,password,address) values(?,?,?,?) on conflict do nothing";
 		}else if (u instanceof Customer) {
-			sql="insert into customer(\"name\",email,password,address) values(?,?,?,?)";
+			sql="insert into customer(\"name\",email,password,address) values(?,?,?,?) on conflict do nothing";
 		}
 		Connection con = conects.connection();
 		try {
@@ -228,7 +228,6 @@ public class DataAcessor {
 				return null;
 			}				
 	}
-
 	
 	
 	public int getTotalOffersPerCar(int carid) {
