@@ -88,7 +88,23 @@ public class Menus {
 	private void myCarsMenu(Customer cus, Scanner sc) {
 
 		System.out.println("\n\n\t\tMy Cars");
-		ArrayList<String> mycars = viewCars(cus.getEmail());
+		ArrayList<String> mycars = new ArrayList<>();
+		dAccesor.readCar(cus.getEmail()).forEach((key, val) -> {
+			mycars.add(key.toString());
+			System.out.println("Select\t" + key + "\t to choose:\t\t" + val);
+			
+			System.out.println("PayMent For Acc: \n");
+			TreeMap<String ,Integer>  getpays= dAccesor.getpayments(cus.getEmail(), key);
+			getpays.forEach((k,v)->{
+				System.out.println("\t\t"+ k+"\t\t\t"+ v);
+			});
+			System.out.println("\n\n");
+		});
+		
+		
+			
+		
+		
 		int menu;
 		while (true) {
 			System.out.println("Select 1 to make payment:\nSelect 2 to go back tp previous menu:");
@@ -244,7 +260,7 @@ public class Menus {
 		} else {
 			allLotCars.forEach((key, val) -> {
 				if (key.equals(Integer.parseInt(filt))) {
-				TreeMap<String ,Integer>  getpays= dAccesor.getpayments(val.getOwner(), key);
+					TreeMap<String ,Integer>  getpays= dAccesor.getpayments(val.getOwner(), key);
 				getpays.forEach((k,v)->{
 					System.out.println("\t\t"+ k+"\t\t\t"+ v);
 				});
@@ -271,6 +287,7 @@ public class Menus {
 
 		int x, amount = 0;
 		while (true) {
+			try {
 			System.out.println("What is your Car Selection:\nSelect Car by number on the left:");
 			x = sc.nextInt();
 			if (dAccesor.readCar("Revdealers").keySet().contains(x)) {
@@ -285,7 +302,10 @@ public class Menus {
 			if (x == 909) {
 				break;
 			}
-
+			}
+			catch(Exception e) {
+				System.out.println("Wrong Input Try Again!\n\n");
+			}
 		}
 
 	}

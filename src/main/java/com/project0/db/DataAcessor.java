@@ -180,12 +180,13 @@ public class DataAcessor {
 	public int addOffers(int carId, int userid, int offeramount) {
 		Connector conects = new Connector();
 		Connection con = conects.connection();
-		String sql= "insert into offers(userid,carid,amount) values(?,?,?)";
+		String sql= "insert into offers(userid,carid,amount) values(?,?,?) on conflict(userid,carid) do update set amount=?";
 		try {
 			PreparedStatement ps= con.prepareStatement(sql);
 			ps.setInt(1, userid);
 			ps.setInt(2, carId);
 			ps.setInt(3, offeramount);
+			ps.setInt(4, offeramount);
 			int x=ps.executeUpdate();
 			ps.close();
 			con.close();
@@ -215,9 +216,8 @@ public class DataAcessor {
 			ps.setInt(1, useme);
 			ResultSet rs = ps.executeQuery();
 			TreeMap<String, Integer[]> out = new TreeMap<>();
-			int sm=0;
 			while(rs.next()) {
-				out.put(sm++ +"  :"+ rs.getString(1), new Integer[] {rs.getInt(2),rs.getInt(3)}); 
+				out.put(rs.getString(1), new Integer[] {rs.getInt(2),rs.getInt(3)}); 
 			}
 			ps.close();
 			con.close();
@@ -257,8 +257,10 @@ public class DataAcessor {
  	public int setOwnerInOffers(int carId ,String email) {
 		Connector connect= new Connector();
 		Connection con= connect.connection();
-		String sql="update cars set carowner='?' where carid=? and carowner='Revdealers';"
-				+ "update offers set boughtby='?' where carid=? and boughtby is null;";
+		String sql="begin;"
+				+ "update cars set carowner=? where carid=? and carowner='Revdealers';"
+				+ "update offers set boughtby=? where carid=? and boughtby is null;"
+				+ "commit;";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, email);
@@ -289,8 +291,9 @@ public class DataAcessor {
 			ps.setString(2, email);
 			ResultSet rs = ps.executeQuery();
 			TreeMap<String, Integer> out = new TreeMap<>();
+			int x=0;
 			while(rs.next()) {
-				out.put(rs.getString(1), rs.getInt(2)); 
+				out.put(x++ +" : "+rs.getString(1), rs.getInt(2)); 
 			}		
 			
 			sql="select price, sum(amountpayed) as total from \"cars\"a,\"payment\"b where a.carId=b.carid and a.carId=?  group by a.carid;";
@@ -299,8 +302,8 @@ public class DataAcessor {
 			ps.setInt(1, carid);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-			out.put("Total :", rs.getInt(2));
-			out.put("Balance :", rs.getInt(1)-rs.getInt(2));
+			out.put(x++ +" Total :", rs.getInt(2));
+			out.put(x++ +" Balance :", rs.getInt(1)-rs.getInt(2));
 			}
 			ps.close();
 			con.close();
