@@ -215,8 +215,9 @@ public class DataAcessor {
 			ps.setInt(1, useme);
 			ResultSet rs = ps.executeQuery();
 			TreeMap<String, Integer[]> out = new TreeMap<>();
+			int sm=0;
 			while(rs.next()) {
-				out.put(rs.getString(1), new Integer[] {rs.getInt(2),rs.getInt(3)}); 
+				out.put(sm++ +"  :"+ rs.getString(1), new Integer[] {rs.getInt(2),rs.getInt(3)}); 
 			}
 			ps.close();
 			con.close();

@@ -52,14 +52,13 @@ public class Menus {
 			
 			} else if (menu.equals("3")) {
 				userInput.divider("=Pending Offers=");
-				System.out.println("\n\n");
+				System.out.println("\n");
 				TreeMap<String, Integer[]> offers = dAccesor.getOffers(0,custm.getCustomerID());
-				System.out.println("\n\n\n");
 				offers.forEach((a, b) -> {
 					System.out.print("Email : " + a + "\t\t\t");
-					System.out.println("CarId : " + b[0] + "\t\tAmount :" + b[1] +"\n\n\n");
+					System.out.println("CarId : " + b[0] + "\t\tAmount :" + b[1] +"\n");
 				});
-				System.out.println("\n\n");
+				System.out.println("\n");
 				userInput.divider("===============");
 			
 			} else if (menu.equals("4")) {
