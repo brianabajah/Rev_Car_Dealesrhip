@@ -91,3 +91,25 @@
 2019-10-08 23:01:52 INFO  Driver:26 - Scanner open
 2019-10-08 23:02:27 INFO  Driver:46 - Customer LogIn:c@g.c
 2019-10-08 23:03:51 INFO  Menus:342 - Payment of: 500made for CarId: 2By customerId: 1
+2019-10-09 06:51:03 INFO  Driver:26 - Scanner open
+2019-10-09 06:52:42 INFO  Driver:26 - Scanner open
+2019-10-09 06:52:52 INFO  Driver:26 - Scanner open
+2019-10-09 06:53:09 INFO  Driver:26 - Scanner open
+2019-10-09 06:53:18 INFO  Driver:26 - Scanner open
+2019-10-09 06:53:28 INFO  Driver:26 - Scanner open
+2019-10-09 06:53:41 INFO  Driver:26 - Scanner open
+2019-10-09 06:53:56 INFO  Driver:26 - Scanner open
+2019-10-09 06:55:22 INFO  Driver:26 - Scanner open
+2019-10-09 06:55:30 INFO  Driver:26 - Scanner open
+2019-10-09 09:07:42 INFO  Driver:26 - Scanner open
+2019-10-09 09:21:34 INFO  Driver:26 - Scanner open
+2019-10-09 09:21:46 INFO  Driver:46 - Customer LogIn:c@g.c
+2019-10-09 09:26:28 INFO  Menus:65 - c@g.cLogged Out
+2019-10-09 09:54:42 INFO  Driver:26 - Scanner open
+2019-10-09 09:55:15 INFO  Driver:56 - Employee LogIn: e@g.c
+2019-10-09 10:12:36 INFO  Driver:26 - Scanner open
+2019-10-09 10:13:48 INFO  Driver:46 - Customer LogIn:c@g.c
+2019-10-09 10:15:30 INFO  Menus:65 - c@g.cLogged Out
+2019-10-09 10:15:41 INFO  Driver:56 - Employee LogIn: e@g.c
+2019-10-09 10:17:50 INFO  Driver:46 - Customer LogIn:c@g.c
+2019-10-09 10:18:40 INFO  Menus:342 - Payment of: 2000made for CarId: 14By customerId: 1

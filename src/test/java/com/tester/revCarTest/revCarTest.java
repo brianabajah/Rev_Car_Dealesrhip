@@ -21,18 +21,18 @@ public class revCarTest {
 	HashMap<Integer, Car> retC;
 	DataAcessor ds = new DataAcessor();
 	
-	@Test
-	public void testDatabase() {
-		
-		employ= new Employee("Testname ", "test@email.com", "testpassword", "TestCity TestState");
-		customer =  new  Customer("Testname", "test@email.com", "testpassword", "TestCity TestState");
-		String[] carasserts= {car.getBrand(),car.getMake(),car.getOwner(),""+car.getPrice(),""+car.getYear()};
-		String[] carValues = {"Testbrand", "Testmake","RevDealers","1111","1111"};
-		for(int x=0;x<carasserts.length;x++) {
-			assertEquals(carValues[x],carasserts[x]);
-		}
-//		assertEquals(carValues[x],car.getOffers());
-	}
+//	@Test
+//	public void testDatabase() {
+//		
+//		employ= new Employee("Testname ", "test@email.com", "testpassword", "TestCity TestState");
+//		customer =  new  Customer("Testname", "test@email.com", "testpassword", "TestCity TestState");
+//		String[] carasserts= {car.getBrand(),car.getMake(),car.getOwner(),""+car.getPrice(),""+car.getYear()};
+//		String[] carValues = {"Testbrand", "Testmake","RevDealers","1111","1111"};
+//		for(int x=0;x<carasserts.length;x++) {
+//			assertEquals(carValues[x],carasserts[x]);
+//		}
+////		assertEquals(carValues[x],car.getOffers());
+//	}
 	@Test
 	public void testcreatecar() {
 		car =new Car("Testbrand","Testmake",1111, 1111);
@@ -46,17 +46,16 @@ public class revCarTest {
 		assertTrue(retC.size()>0);
 	}
 	
+	
 	@Test
-	public void testDeleteCar() {	
-		retC.forEach((key,val)->{
-			if(val.getBrand()=="Testbrand") {
-				assertEquals(ds.deleteCars(key),1);
-			}
-		});		
+	public void testCreateEmployee() {
+		employ= new Employee("Testname ", "test@email.com", "testpassword", "TestCity TestState");
+		assertTrue(ds.writeUsers(employ)>=0);
 	}
 	
 	@Test
-	public void testEmployeeAcc() {
-		
+	public void testCreateCustomer() {
+		customer =  new  Customer("Testname", "test@email.com", "testpassword", "TestCity TestState");
+		assertTrue(ds.writeUsers(customer)>=0);
 	}
 }
